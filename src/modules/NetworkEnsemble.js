@@ -76,7 +76,6 @@ NetworkEnsemble.prototype = {
 			}
 		}
 		if( _modes.indexOf( 'osc' ) !== -1 ){
-			// activate osc
 			this.modes.push('osc');
 		}
 
@@ -108,7 +107,6 @@ NetworkEnsemble.prototype = {
 		});
 		
 		this.packetDistributor.onPacket = function( packet ){
-			//that.sendOSC( packet );
 			if( that.modes.indexOf( 'raw' ) !== -1 ){
 				that.audioOut.addPacket( packet );
 			} else if( that.filterCategories.indexOf( packet.type.category ) !== -1 ){
@@ -122,75 +120,8 @@ NetworkEnsemble.prototype = {
 	},
 	stop: function(){
 		this.packetDistributor.stop();
-		this.stopOSC();
 		console.log( 'NetworkEnsemble.stop() May not be fully Implemented.' );
 	},
-	// setOSCPort: function( to ){
-	// 	this.oscPort = to;
-	// 	this.stopOSC();
-	// },
-	// initOSC: function(){
-	// 	this.lastOSCSend = (new Date()).getTime();
-	// 	this.osc = new osc.Client( '127.0.0.1', this.oscPort );
-	// 	this.osc.send( '/fields', 'category,name,timestamp,frame_length,source_ip,destination_ip,source_mac,destination_mac,wlan' );
-	// },
-	// stopOSC: function(){
-	// 	console.log( 'NetworkEnsemble.stopOSC() not implemented.' );
-	// 	//cancel that, somehow, so we can use a new port
-	// },
-	// sendOSC: function( packet ){
-	// 	var now = (new Date()).getTime();
-	// 	if( now - this.lastOSCSend > 50 ){ //don't overload it, yeah?
-	// 		this.lastOSCSend = now;
-	// 		this.osc.send(
-	// 			'/packet', 
-	// 			packet.type.category, 
-	// 			packet.type.name,
-	// 			parseFloat( packet.timestamp ),
-	// 			parseInt( packet.frame_length ),
-	// 			packet.source_ip,
-	// 			packet.destination_ip,
-	// 			packet.source_mac,
-	// 			packet.destination_mac,
-	// 			packet.wlan
-	// 		);	
-	// 	}
-	// },
-	// initAudio: function(){
-	// 	var that = this;
-	// 	this.actx = new AudioContext();
-	// 	this.audioBufferSize = 2048;
-	// 	this.audioWavePeriod = Math.floor( this.audioBufferSize * 0.001 );
-	// 	this.audioMode = 'mute'; // or 'raw', or 'packet'
-	// 	this.audioProcessor = this.actx.createScriptProcessor( this.audioBufferSize, 0, 1 );
-	// 	this.audioSamp = -1;
-	// 	this.audioPulse = false;
-	// 	this.audioProcessor.onaudioprocess = function( e ){
-	// 		var out = e.outputBuffer.getChannelData( 0 );
-	// 		that.audioProcess( out );			
-	// 	};
-	// 	this.audioProcessor.connect( this.actx.destination );
-	// },
-	// audioProcess: function( channel ){
-	// 	if( this.audioMode === 'mute' ) return;
-	// 	if( this.audioMode === 'raw' ){
-	// 		// for( var i = 0; i < out.length; i++ ){
-	// 		// 	out[i] = (Math.random() * 2) - 1;
-	// 		// }			
-	// 	}
-	// 	if( this.audioMode === 'packet' ){
-	// 		for(var i = 0; i < out.length; i++ ){
-	// 			if( this.audioPulse ){
-	// 				if( i % this.audioWavePeriod === 0 ){
-	// 					this.audioSamp = this.audioSamp * -1;
-	// 				}
-	// 				out[i] = this.audioSamp;
-	// 			} else {
-	// 				out[i] = 0;
-	// 			}
-	// 	 	}
-	// 	}
-	// },
 };
 
 
