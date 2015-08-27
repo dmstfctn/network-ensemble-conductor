@@ -1,19 +1,35 @@
+/*
+ ** Available modes of audio output:
+ ** mute 	no audio out
+ ** raw 	outputs raw byte data
+ ** packet 	outputs a pulse on each packet. This is set in a 
+ **			way that provides enough power to trigger a MOSFET 
+ **			to drive electrical components. For workshops, but 
+ **			kept here as it could be useful.
+ */
 var MODES = [ 'mute', 'raw', 'packet' ];
 
 var AudioOut = function( _bufferSize ){
 	var that = this;
+
+	//general audio setup
 	this.actx = new window.AudioContext();
-	this.bufferSize = _bufferSize || 2048;	
+	this.bufferSize = _bufferSize || 2048;		
+	this.processor = this.actx.createScriptProcessor( this.bufferSize, 0, 1 );
+	this.processor.onaudioprocess = function( e ){
+		var out = e.outputBuffer.getChannelData( 0 );
+		that.onAudioProcess( out );			
+	};
+
+	// modes
 	this.mode = 0; // mute by default
 
-	// raw data output settings
-	this.processor = this.actx.createScriptProcessor( this.bufferSize, 0, 1 );
+	// raw data output settings	
 	this.dataBuffer = [];
 	this.maxBufferSize = this.actx.sampleRate * 2;
 	this.sampleRepeat = 2;
 
 	// packet pulse output settings
-	//this.wavePeriod = Math.max( Math.floor( this.bufferSize * 0.001 ), 2 );
 	this.wavePeriod = Math.floor( this.bufferSize * 0.001 );
 	this.samp = 1;
 	this.pulse = false;
@@ -21,11 +37,6 @@ var AudioOut = function( _bufferSize ){
 	this.pulseTime = this.pulsePeriod * 0.7;
 	this.lastPulseAt = (new Date()).getTime();
 	this.pulseTimer;
-
-	this.processor.onaudioprocess = function( e ){
-		var out = e.outputBuffer.getChannelData( 0 );
-		that.onAudioProcess( out );			
-	};
 };
 
 AudioOut.prototype = {
@@ -55,7 +66,6 @@ AudioOut.prototype = {
 		if( _to < 1 ) _to = 1;
 		if( _to > this.bufferSize/2 ) _to = this.bufferSize/2;
 		this.sampleRepeat = _to;
-		console.log( 'sampleRepeat = ', this.sampleRepeat );
 	},
 	run: function(){
 		this.processor.connect( this.actx.destination );
@@ -89,46 +99,50 @@ AudioOut.prototype = {
 			}
 		}
 	},
+	fillBufferRaw: function( out ){
+		var outIndex = 0;
+		while( outIndex < out.length ){
+			var digit = 0;
+			if( this.dataBuffer.length >= 2 ){
+				digit = this.dataBuffer.shift();
+				digit += this.dataBuffer.shift();
+				digit = parseInt( digit, 16 );
+				digit = digit / 255;
+			}
+			for( var i = 0; i < this.sampleRepeat; i++ ){
+				if( outIndex < out.length ){
+					digit = digit * -1;
+					out[outIndex] = digit;
+					outIndex++;
+				} else {
+					break;
+				}
+			}
+		}		
+	},
+	fillBufferPacketPulse: function( out ){
+		for(var i = 0; i < out.length; i++ ){
+			if( this.pulse ){
+				if( i % this.wavePeriod === 0 ){
+					this.samp = this.samp * -1;
+				}
+				out[i] = this.samp;
+			} else {
+				out[i] = 0;
+			}
+	 	}
+	 },
 	onAudioProcess: function( out ){
 		if( this.mode === MODES.indexOf('mute') ) return;
 
 		if( this.mode === MODES.indexOf('raw') ){
-			//console.log( 'buffer length: ', this.dataBuffer.length);
-			var outIndex = 0;
-			while( outIndex < out.length ){
-				var digit = 0;
-				if( this.dataBuffer.length >= 2 ){
-					digit = this.dataBuffer.shift();
-					digit += this.dataBuffer.shift();
-					digit = parseInt( digit, 16 );
-					digit = digit / 255;
-				}
-				for( var i = 0; i < this.sampleRepeat; i++ ){
-					if( outIndex < out.length ){
-						digit = digit * -1;
-						out[outIndex] = digit;
-						outIndex++;
-					} else {
-						break;
-					}
-				}
-			}			
+			this.fillBufferRaw( out );
 		}
 
 		if( this.mode === MODES.indexOf('packet') ){
-			for(var i = 0; i < out.length; i++ ){
-				if( this.pulse ){
-					if( i % this.wavePeriod === 0 ){
-						this.samp = this.samp * -1;
-					}
-					out[i] = this.samp;
-				} else {
-					out[i] = 0;
-				}
-		 	}
+			this.fillBufferPacketPulse( out );
 		}
-	},
+	}
 };
 
 module.exports = AudioOut;
-
