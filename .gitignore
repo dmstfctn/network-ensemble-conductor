@@ -1,0 +1,5 @@
+.DS_Store
+.sass-cache
+nwjs.app
+src/bin/*
+node_modules

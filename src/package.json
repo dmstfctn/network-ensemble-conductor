@@ -1,0 +1,32 @@
+{
+  "name": "network-ensemble",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Oliver Smith",
+  "license": "WTFPL",
+  "dependencies": {
+    "jquery": "^2.1.4",
+    "node-osc": "^0.3.0",
+    "speaker": "^0.2.5"
+  },
+  "window": {
+    "title": "Network Ensemble",
+    "icon": "link.png",
+    "toolbar": true,
+    "frame": true,
+    "toolbar": false,
+    "frame": false,
+    "width": 320,
+    //"height": 360,
+    "height": 450,
+    "position": "center",
+    "min_width": 200,
+    "min_height": 200,
+    "max_width": 200,
+    "max_height": 200
+  }
+}

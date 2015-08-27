@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Network Ensemble</title>
+	<link rel="stylesheet" href="assets/stylesheets/screen.css">
+</head>
+<body>
+	<div id="app">
+		<header class="app--header" style="">
+			<span class="close"></span>
+			<h1 class="title">NETWORK ENSEMBLE</h1>
+		</header>
+		<div class="app--pages">
+			<article class="app--page app--page__start">
+				<div class="start">
+					<div class="config-box">
+						<header>
+							<h2>Select Network Interface</h2>
+						</header>
+						<section>
+							<select name="interfaces" id="">
+								
+							</select>
+							<p class="tip">To see the interface name, hold 'alt' and click the airport icon.</p>
+						</section>
+					</div>
+					<div class="button-wrapper">
+						<button disabled>Start</button>
+					</div>
+				</div>
+			</article>
+			<article class="app--page app--page__main hidden">
+				<div class="main">
+					<section class="main--filter">
+						<h2>Select Packets</h2>
+						<div class="filter--mass">
+							<span class="packet--mass packet--mass__all">All</span> / <span class="packet--mass packet--mass__none">None</span>
+						</div>
+						<div class="filter--filters">
+							<div class="col">
+								<div>
+									<label for="packet-communication"><input type="checkbox" name="packet-communication">Communication</label>
+								</div>
+								<div>
+									<label for="packet-data"><input type="checkbox" name="packet-data">Data</label>
+								</div>
+								<div>
+									<label for="packet-unknown"><input type="checkbox" name="packet-unknown">Unknown</label>							
+								</div>
+							</div><!--
+						 --><div class="col">
+								<div>
+									<label for="packet-structure"><input type="checkbox" name="packet-structure">Structure</label>							
+								</div>
+								<div>
+									<label for="packet-gatekeeping"><input type="checkbox" name="packet-gatekeeping">Gatekeeping</label>
+								</div>
+								<div>
+									<label for="packet-broken"><input type="checkbox" name="packet-broken">Broken</label>
+								</div>
+							</div>
+						</div>
+					</section>
+					<section class="main--mode">
+						<h2>Select Outputs</h2>
+						<ul class="modes select-box">
+							<li class="modes--mode" data-mode="raw">
+								Raw
+							</li><!--
+						 --><li class="modes--mode" data-mode="packets">
+								Packets
+							</li><!--
+						 --><li class="modes--mode" data-mode="osc">
+								OSC
+							</li>
+						</ul>
+					</section>
+					<section class="main--configuration">
+						<!--<h2>Configure</h2>-->
+						<div class="raw-speed">
+							<h2>Raw Playback Speed</h2>
+							<div class="select-range">
+								<input type="range" name="raw-fidelity" min="0" max="1000" step="1" value ="1">
+
+								<label for="raw-fidelity" class="range-label-min">1</label>
+								<label for="raw-fidelity"class="range-label-max">1024</label>
+							</div>
+						</div>
+					</section>
+				</div>
+			</article>
+		</div>
+		
+	</div>
+	<script src="./libs/jquery-2.1.4.js"></script>
+	<script src="main.js"></script>
+</body>
+</html>
