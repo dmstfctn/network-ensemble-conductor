@@ -99,8 +99,9 @@ AudioOut.prototype = {
 			}
 		}
 	},
-	fillBufferRaw: function( out ){
+	fillBufferRaw: function( out, _buffer ){
 		var outIndex = 0;
+		var buffer = _buffer || this.dataBuffer;
 		while( outIndex < out.length ){
 			var digit = 0;
 			if( this.dataBuffer.length >= 2 ){
@@ -136,7 +137,7 @@ AudioOut.prototype = {
 		if( this.mode === MODES.indexOf('mute') ) return;
 
 		if( this.mode === MODES.indexOf('raw') ){
-			this.fillBufferRaw( out );
+			this.fillBufferRaw( out  );
 		}
 
 		if( this.mode === MODES.indexOf('packet') ){
