@@ -33,7 +33,7 @@ The messages come to the address ```/packet```, with the values as follows:
 Not all fields are necesarily sent with all packets - it's dependent on them & also the amount of traffic - but you should always get a Category and a Name, a length and a timestamp are pretty likely too. 
 
 #####Testing
-There is an example receiver application (in the test directory, called ```netens_receiver_processing```) that shows how to receive and parse the messages in Processing.
+There are example receiver applications in the ```test``` directory that show how to receive and parse the messages in Processing (requires the OscP5 library) and Max/MSP (Max 7).
 
 ##Requirements
 
