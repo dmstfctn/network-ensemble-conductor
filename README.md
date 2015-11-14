@@ -10,10 +10,10 @@ You will then be presented with a passord box - the application needs root acces
 
 Once you've authorised it, you will see the main interface. Here you can select which packets you're interested in and how they should be output. There are currently 2 output types, Raw and OSC. They can be used together.
 
-####Raw
+#####Raw
 The Raw option outputs the sound through your speakers/headphones, this is the raw bytes reeived by the applicaiton converted directly to sound. The slider beneath allows you to change how quickly they're played back & can be useful for hunting for patterns in the data
 
-####OSC
+#####OSC
 The OSC option outputs the packets via [Open Sound Control](http://opensoundcontrol.org/) for use in other applications (many audio applications, especially can use OSC control, and there is a library for most programming languages). 
 
 To receive the messages you should set your application to listen on port ```12099```.
