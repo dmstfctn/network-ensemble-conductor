@@ -31,7 +31,7 @@ OSCOut.prototype = {
 				'/packet', 
 				packet.type.category, 
 				packet.type.name,
-				parseFloat( packet.timestamp ),
+				packet.timestamp,
 				parseInt( packet.frame_length ),
 				packet.source_ip,
 				packet.destination_ip,
