@@ -20,7 +20,7 @@ To receive the messages you should set your application to listen on port ```120
 
 The messages come to the address ```/packet```, with the values as follows:
 
-    Category [string] 			The category thre packet belongs to (Communication/Data/Structure etc)
+    Category [string] 			The category the packet belongs to (Communication/Data/Structure etc)
     Name [string] 				The name of the specific packet (Beacon Frame etc) 
     timestamp [string] 			The timestamp (from the packet itself)
     frameLength [int] 			The size of the packet
@@ -32,7 +32,8 @@ The messages come to the address ```/packet```, with the values as follows:
 
 Not all fields are necesarily sent with all packets - it's dependent on them & also the amount of traffic - but you should always get a Category and a Name, a length and a timestamp are pretty likely too. 
 
-There is an exampke receiver application (in the test directory, called ```netens_receiver_processing```) that shows how to receive and parse the messages in Processing.
+#####Testing
+There is an example receiver application (in the test directory, called ```netens_receiver_processing```) that shows how to receive and parse the messages in Processing.
 
 ##Requirements
 
