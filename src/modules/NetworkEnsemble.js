@@ -76,7 +76,10 @@ NetworkEnsemble.prototype = {
 			}
 		}
 		if( _modes.indexOf( 'osc' ) !== -1 ){
+			this.OSCOut.start();
 			this.modes.push('osc');
+		} else {
+			this.OSCOut.stop();
 		}
 
 	},
