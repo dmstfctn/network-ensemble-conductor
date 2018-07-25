@@ -1,3 +1,6 @@
+# Note
+> This no longer seems to work (on macOS 10.13.6) but did work on macOS 10.10 with nwjs 0.12.2. It's likely something small, but would need some time to fix. It remains here mostly for reference.
+
 # Network Ensemble
 
 MacOS only for now (due to permissions requirements and wifi card specifics). Linux is a possibility, Windows will probably never happen.
