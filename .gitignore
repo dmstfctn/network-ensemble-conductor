@@ -4,3 +4,4 @@ nwjs.app
 src/bin/*
 node_modules
 dist/*
+package-lock.json

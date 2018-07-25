@@ -16,12 +16,9 @@
   "window": {
     "title": "Network Ensemble",
     "icon": "link.png",
-    "toolbar": true,
-    "frame": true,
     "toolbar": false,
     "frame": false,
     "width": 320,
-    //"height": 360,
     "height": 450,
     "position": "center",
     "min_width": 200,
